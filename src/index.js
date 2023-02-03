@@ -1,17 +1,45 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import App from "./App";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./routes/Home";
+import Workouts from "./routes/Workouts";
+import { FaArrowUp } from "react-icons/fa";
+import Monday from "./routes/trainingDays/Monday";
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route path="" element={<App />}>
+          <Route path="home" element={<Home />} />
+          <Route path="workout" element={<Workouts />}>
+            {" "}
+            <Route path="monday" element={<Monday />} />
+            <Route
+              index
+              element={
+                <main className="card bg-orange m-3">
+                  <h5 className="text-white p-1 d-flex justify-content-around align-items-center">
+                    <FaArrowUp />
+                    Chose a workout day!
+                    <FaArrowUp />
+                  </h5>
+                </main>
+              }
+            />
+          </Route>
+          <Route
+            path="*"
+            element={
+              <main>
+                <p>There's nothing here !</p>
+              </main>
+            }
+          />
+        </Route>
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
